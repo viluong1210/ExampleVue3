@@ -1,47 +1,48 @@
 <template>
-  <div class="home-page">
-   
-    <button  @click="addNewTag">add new tag</button>
-    <div v-if="isLoading" class="loading-modal">
-    <div class="loading-spinner"></div>
-  </div>
-    <div>
-   
-    <p>Tags: {{ tags }}</p>
-  </div>
-  </div>
+   <label >Name</label>
+  <VInput :onChange="(e)=> handleChange(e, 'name')"/> 
+
+
+  <label >Title</label>
+  <VInput :onChange="(e)=> handleChange(e, 'title')"/>
+
+  <VButton :onClick="SubmitData" :title="`hahah`"  />
 </template>
 
 <script>
 
-
-import { FETCH_TAGS } from "../store/actions.type";
-import { TAG_ADD } from "../store/mutations.type";
-
+import { ref } from 'vue';
+import VInput from '../components/Input.vue'
+import VButton from '../components/Button.vue'
 export default {
   name: "home",
+  setup() {
+    const dataForm = ref({});
+
+  const handleChange = (e, name) => {
+    dataForm.value[name] = e.target.value;
+  };
+
+  const SubmitData = (e, name) => {
+   console.log('this.dataForm', dataForm.value);
+ };
+return {
+  dataForm,
+  handleChange,
+  SubmitData
+};
+  },
   components: {
-   
+    VInput,
+    VButton
   },
   mounted() {
-    this.$store.dispatch(FETCH_TAGS);
   },
   computed: {
-    
-    tags() {
-     
-      return this.$store.state.tags;
-    },
-    isLoading() {
-
-    return this.$store.state.isLoading
-},
-    
   },
   methods: {
-    addNewTag() {
-      this.$store.dispatch(TAG_ADD);
-    }
+    
+   
   }
 };
 </script>

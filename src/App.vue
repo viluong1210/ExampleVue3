@@ -6,7 +6,7 @@ import loadingModal from './components/HelloWorld.vue'
   
  
   <router-view></router-view>
-  <loading-modal></loading-modal>
+  <!-- <loading-modal></loading-modal> -->
 </template>
 
 <style scoped>
